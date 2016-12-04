@@ -21,6 +21,17 @@ angular.module('assessment').config(function($stateProvider, $urlRouterProvider)
             templateUrl: "../views/shop.html",
             controller: "mainCtrl"
         })
+        .state('product-details', {
+            url: "/product-details",
+            templateUrl: "../views/product-details.html",
+            controller: function($scope, $stateParams, mainService) {
+                console.log($stateParams.id);
+                mainService.getProductDetails($stateParams.id).then(result => {
+                    $scope.product = result.data;
+                })
+            },
+            params: {id: null}
+        })
 
     $urlRouterProvider.otherwise("/");
 })
